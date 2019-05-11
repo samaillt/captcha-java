@@ -25,19 +25,23 @@ public class MainUi {
 	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
 	
+	private static ArrayList<URL> displayedImages = new ArrayList<URL>();
+	
 	public static void main(String[] args) throws IOException {
 		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
 		
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		
 		frame.setLayout(layout);  // affection du layout dans la fenêtre.
-		frame.setSize(1024, 768); // définition de la taille
+		frame.setSize(500, 500); // définition de la taille
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
 		 
 		
 		JButton okButton = createOkButton();
+		
+		JButton reinitButton = createReloadButton();
 
 		
 		frame.add(createLabelImage("centre ville.jpg")); //ajouter des composants à la fenêtre
@@ -52,10 +56,12 @@ public class MainUi {
 		
 		
 		
-		frame.add(new JTextArea("Cliquez n'importe où ... juste pour tester l'interface !"));
+		frame.add(new JTextArea("Cliquez n'importe sur les images !"));
 		
 		
 		frame.add(okButton);
+		
+		frame.add(reinitButton);
 		
 		frame.setVisible(true);
 	}
@@ -74,7 +80,24 @@ public class MainUi {
 					
 					@Override
 					public void run() { // c'est un runnable
-						System.out.println("J'ai cliqué sur Ok");
+						System.out.println("J'ai cliqué sur valider");
+					}
+				});
+			}
+		});
+	}
+	
+	private static JButton createReloadButton(){
+		return new JButton(new AbstractAction("Réinitialiser") { //ajouter l'action du bouton
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				EventQueue.invokeLater(new Runnable() { // faire des choses dans l'interface donc appeler cela dans la queue des évènements
+					
+					@Override
+					public void run() { // c'est un runnable
+						System.out.println("J'ai cliqué sur reload");
+						displayedImages.clear();
 					}
 				});
 			}
@@ -88,7 +111,7 @@ public class MainUi {
 		System.out.println(url); 
 		
 		BufferedImage img = ImageIO.read(url); //lire l'image
-		Image sImage = img.getScaledInstance(1024/3,768/4, Image.SCALE_SMOOTH); //redimentionner l'image
+		Image sImage = img.getScaledInstance(500/3,500/4, Image.SCALE_SMOOTH); //redimentionner l'image
 		
 		final JLabel label = new JLabel(new ImageIcon(sImage)); // créer le composant pour ajouter l'image dans la fenêtre
 		
