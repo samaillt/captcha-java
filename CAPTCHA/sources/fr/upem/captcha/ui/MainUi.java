@@ -24,7 +24,6 @@ import javax.swing.JTextArea;
 public class MainUi {
 	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
-	
 	private static ArrayList<URL> displayedImages = new ArrayList<URL>();
 	
 	public static void main(String[] args) throws IOException {
@@ -66,6 +65,18 @@ public class MainUi {
 		frame.setVisible(true);
 	}
 	
+	private static int randOneAndSix() {
+		int n = (int)(Math.random() * 6) +1;
+        return n;
+	}
+	private static int randOneAndTwo() {
+		int n = (int)(Math.random() * 2) +1;
+        return n;
+	}
+	private static int randOneAndThree() {
+		int n = (int)(Math.random() * 3) +1;
+        return n;
+	}	
 	
 	private static GridLayout createLayout(){
 		return new GridLayout(4,3);
