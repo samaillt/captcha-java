@@ -39,7 +39,7 @@ public class Category implements Images {
 			e.printStackTrace();
 		}
 		
-		for (String image :images) {
+		for (String image : images) {
 			this.images.add(this.getClass().getResource(image));
 		}
 	}
@@ -65,6 +65,7 @@ public class Category implements Images {
 				Object object = null;
 				try {
 					object = Class.forName(className).getDeclaredConstructor().newInstance();
+					// OK JUSQUE LA System.out.println(object);
 				} catch (ClassNotFoundException e) // Class doesn't exist
 			    {
 					e.printStackTrace();
@@ -86,14 +87,14 @@ public class Category implements Images {
 			    	e.printStackTrace();
 			    }
 				if (this.getClass().isInstance(object)) {
-					this.subCategories.add((Category)object); // add to child categories
+					this.subCategories.add((Category)object); // Adding object to subCategories
 		        }
 			}
 		}
 	}
 	
 	public Path getPath() {
-		String path = this.getClass().getPackage().getName().replace('.', '/');
+		// String path = this.getClass().getPackage().getName().replace('.', '/');
 		StringBuilder fileName = new StringBuilder(this.getClass().getSimpleName());
 		fileName.append(".class");
 		URL catUrl = this.getClass().getResource(fileName.toString()); 

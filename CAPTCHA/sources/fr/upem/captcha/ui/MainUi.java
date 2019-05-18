@@ -46,9 +46,7 @@ public class MainUi {
 	
 	public static void main(String[] args) throws IOException {
 
-		Category cat = new Anime();
-		System.out.println(cat.getPath());
-		System.out.println(cat.getName());
+		Category cat = new Princess();
 		for (Category category : cat.getSubCategories()) {
 			System.out.println(category);
 		}
