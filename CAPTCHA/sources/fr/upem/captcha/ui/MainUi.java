@@ -1,6 +1,7 @@
 package fr.upem.captcha.ui;
 
 import fr.upem.captcha.images.Images;
+import fr.upem.captcha.controller.MainController;
 import fr.upem.captcha.images.Category;
 import fr.upem.captcha.images.anime.Anime;
 import fr.upem.captcha.images.anime.princess.Princess;
@@ -46,6 +47,8 @@ public class MainUi {
 	
 	public static void main(String[] args) throws IOException {
 
+		MainController mainController = MainController.getInstance();
+		
 		Category cat = new Princess();
 		for (Category category : cat.getSubCategories()) {
 			System.out.println(category);
