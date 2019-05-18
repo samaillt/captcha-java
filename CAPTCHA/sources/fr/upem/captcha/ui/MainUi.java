@@ -5,7 +5,7 @@ import fr.upem.captcha.images.Category;
 import fr.upem.captcha.images.anime.Anime;
 import fr.upem.captcha.images.anime.princess.Princess;
 import fr.upem.captcha.images.anime.titeuf.Titeuf;
-import fr.upem.captcha.images.game.Games;
+import fr.upem.captcha.images.game.Game;
 import fr.upem.captcha.images.game.clash.Clash;
 import fr.upem.captcha.images.game.fortnite.Fortnite;
 import fr.upem.captcha.images.hero.Hero;
@@ -49,7 +49,12 @@ public class MainUi {
 		Category cat = new Anime();
 		System.out.println(cat.getPath());
 		System.out.println(cat.getName());
-		cat.fillCategories();
+		for (Category category : cat.getSubCategories()) {
+			System.out.println(category);
+		}
+		for (URL image : cat.getImages()) {
+			System.out.println(image);
+		}
 		
 		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 		
@@ -60,13 +65,11 @@ public class MainUi {
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
-		 
 		
 		JButton okButton = createOkButton();
 		
 		JButton reinitButton = createReloadButton();
 
-		
 		frame.add(createLabelImage("centre ville.jpg")); //ajouter des composants à la fenêtre
 		frame.add(createLabelImage("le havre.jpg"));
 		frame.add(createLabelImage("panneau 70.jpg"));
@@ -77,10 +80,7 @@ public class MainUi {
 		frame.add(createLabelImage("ville espace verts.jpg"));
 		frame.add(createLabelImage("voie pieton.jpg"));
 		
-		
-		
 		frame.add(new JTextArea("Cliquez n'importe sur les images !"));
-		
 		
 		frame.add(okButton);
 		

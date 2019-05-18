@@ -2,6 +2,10 @@ package fr.upem.captcha.images.game;
 
 import fr.upem.captcha.images.Category;
 
-public class Games extends Category {
+public class Game extends Category {
+	
+	public Game() {
+		super();
+	}
 
 }
