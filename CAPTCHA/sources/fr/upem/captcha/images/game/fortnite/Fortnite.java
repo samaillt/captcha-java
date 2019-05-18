@@ -1,4 +1,4 @@
-package fr.upem.captcha.images.games.fortnite;
+package fr.upem.captcha.images.game.fortnite;
 
 import fr.upem.captcha.images.Category;
 

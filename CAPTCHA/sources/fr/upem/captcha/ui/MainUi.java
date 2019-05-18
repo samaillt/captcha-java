@@ -1,5 +1,17 @@
 package fr.upem.captcha.ui;
 
+import fr.upem.captcha.images.Images;
+import fr.upem.captcha.images.Category;
+import fr.upem.captcha.images.anime.Anime;
+import fr.upem.captcha.images.anime.princess.Princess;
+import fr.upem.captcha.images.anime.titeuf.Titeuf;
+import fr.upem.captcha.images.game.Games;
+import fr.upem.captcha.images.game.clash.Clash;
+import fr.upem.captcha.images.game.fortnite.Fortnite;
+import fr.upem.captcha.images.hero.Hero;
+import fr.upem.captcha.images.hero.dc.Dc;
+import fr.upem.captcha.images.hero.marvel.Marvel;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -23,16 +35,28 @@ import javax.swing.JTextArea;
 
 public class MainUi {
 	
+	private static int windowWidth = 800;
+	private static int windowHeight = 800;
+	
+	private static int gridLines = 4;
+	private static int gridColumns = 3;
+	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
 	private static ArrayList<URL> displayedImages = new ArrayList<URL>();
 	
 	public static void main(String[] args) throws IOException {
-		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
+
+		Category cat = new Anime();
+		System.out.println(cat.getPath());
+		System.out.println(cat.getName());
+		cat.fillCategories();
+		
+		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 		
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		
 		frame.setLayout(layout);  // affection du layout dans la fenêtre.
-		frame.setSize(500, 500); // définition de la taille
+		frame.setSize(windowWidth, windowHeight); // définition de la taille
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
@@ -65,21 +89,13 @@ public class MainUi {
 		frame.setVisible(true);
 	}
 	
-	private static int randOneAndSix() {
-		int n = (int)(Math.random() * 6) +1;
+	private static int randomFromOne(int number) {
+		int n = (int)(Math.random() * number) +1;
         return n;
 	}
-	private static int randOneAndTwo() {
-		int n = (int)(Math.random() * 2) +1;
-        return n;
-	}
-	private static int randOneAndThree() {
-		int n = (int)(Math.random() * 3) +1;
-        return n;
-	}	
 	
 	private static GridLayout createLayout(){
-		return new GridLayout(4,3);
+		return new GridLayout(gridLines,gridColumns);
 	}
 	
 	private static JButton createOkButton(){
@@ -122,7 +138,7 @@ public class MainUi {
 		System.out.println(url); 
 		
 		BufferedImage img = ImageIO.read(url); //lire l'image
-		Image sImage = img.getScaledInstance(500/3,500/4, Image.SCALE_SMOOTH); //redimentionner l'image
+		Image sImage = img.getScaledInstance(windowWidth/gridColumns,windowHeight/gridLines, Image.SCALE_SMOOTH); //redimentionner l'image
 		
 		final JLabel label = new JLabel(new ImageIcon(sImage)); // créer le composant pour ajouter l'image dans la fenêtre
 		

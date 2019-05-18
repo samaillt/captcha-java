@@ -1,4 +1,4 @@
-package fr.upem.captcha.images.games.clash;
+package fr.upem.captcha.images.game.clash;
 
 import fr.upem.captcha.images.Category;
 

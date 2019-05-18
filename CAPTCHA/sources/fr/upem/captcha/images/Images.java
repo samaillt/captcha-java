@@ -6,5 +6,6 @@ import java.util.ArrayList;
 public interface Images {
 
 	public ArrayList<URL> getImages();
+	public ArrayList<Category> getSubCategories();
 
 }
