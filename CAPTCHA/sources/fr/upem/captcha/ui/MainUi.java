@@ -148,7 +148,7 @@ public class MainUi {
 		if (frame.getContentPane().getComponentCount()-1 >= i) {
 			frame.getContentPane().remove(i);
 		}
-		frame.add(new JTextArea("Click on " + MainController.getInstance().getCorrectCategory()), i);
+		frame.add(new JTextArea("Click on images which represents : " + MainController.getInstance().getCorrectCategory().getName()), i);
 		frame.repaint();
 		frame.revalidate();
 	}

@@ -93,7 +93,6 @@ public class MainController {
 	public boolean verifySelectedImages(ArrayList<URL> selectedImages) {
 		System.out.println("correctImages" + correctImages);
 		System.out.println("selectedImages" + selectedImages);
-		System.out.println(correctImagesNumber);
 		if(selectedImages.size() != correctImagesNumber) {
 			return false;
 		}
