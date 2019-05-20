@@ -8,14 +8,14 @@ import java.util.Collections;
 
 public class MainController {
 	
-	private static int difficultyLevel;
-	private static int imageNumber;
-	private static int correctImagesNumber;
-	private static MainCategory mainCategory;
-	private static Category correctCategory;
-	private static ArrayList<URL> displayedImages = new ArrayList<URL>();
-	private static ArrayList<URL> correctImages = new ArrayList<URL>();
-	private static ArrayList<URL> falseImages = new ArrayList<URL>();
+	private int difficultyLevel;
+	private int imageNumber;
+	private int correctImagesNumber;
+	private MainCategory mainCategory;
+	private Category correctCategory;
+	private ArrayList<URL> displayedImages = new ArrayList<URL>();
+	private ArrayList<URL> correctImages = new ArrayList<URL>();
+	private ArrayList<URL> falseImages = new ArrayList<URL>();
     
     /** Instance unique pré-initialisée */
     private static MainController instance = new MainController();
@@ -24,22 +24,23 @@ public class MainController {
 	private MainController(){
 		this.difficultyLevel = 1;
 		this.imageNumber = 9;
-		this.correctImagesNumber = 4;
+		this.correctImagesNumber = randomFromZero(4) + 1;
 		this.mainCategory = new MainCategory();
 		this.correctCategory = randomCategory(this.mainCategory.getSubCategories());
 		this.fillCorrectImages(correctCategory);
 		this.fillFalseImages(mainCategory);
+		this.filldisplayedImages();
 	}
 	
-	public static ArrayList<URL> getFalseImages() {
+	public  ArrayList<URL> getFalseImages() {
 		return falseImages;
 	}
 
-	public static void setFalseImages(ArrayList<URL> falseImages) {
-		MainController.falseImages = falseImages;
+	public  void setFalseImages(ArrayList<URL> falseImages) {
+		this.falseImages = falseImages;
 	}
 
-	public static void fillCorrectImages(Category correctCategory) {
+	public  void fillCorrectImages(Category correctCategory) {
 		if (correctCategory.getSubCategories().isEmpty()) {
 			for (URL image : correctCategory.getImages()) {
 				correctImages.add(image);
@@ -51,7 +52,7 @@ public class MainController {
 		}
 	}
 	
-	public static void fillFalseImages(Category category) {
+	public  void fillFalseImages(Category category) {
 		if (category == correctCategory) {
 			return;
 		}
@@ -65,78 +66,103 @@ public class MainController {
 			}
 		}
 	}
-     
-    public static int getDifficultyLevel() {
+	
+	public void filldisplayedImages() {
+		ArrayList<URL> correctImages = getCorrectImages();
+		Collections.shuffle(correctImages);
+		displayedImages.addAll(correctImages.subList(0, correctImagesNumber));
+		
+		ArrayList<URL> falseImages = getFalseImages();
+		Collections.shuffle(falseImages);
+		displayedImages.addAll(falseImages.subList(0, imageNumber - correctImagesNumber));
+		
+		ArrayList<URL> allImages = getDisplayedImages();
+		Collections.shuffle(allImages);
+	}
+	
+	public boolean verifySelectedImages(ArrayList<URL> selectedImages) {
+		if(selectedImages.size() != correctImagesNumber) {
+			return false;
+		}
+		for (URL url : selectedImages) {
+			if (!correctImages.contains(url)){
+				return false;
+			}
+		}
+		return true;
+	}
+		
+    public int getDifficultyLevel() {
 		return difficultyLevel;
 	}
 
-	public static void setDifficultyLevel(int difficultyLevel) {
-		MainController.difficultyLevel = difficultyLevel;
+	public void setDifficultyLevel(int difficultyLevel) {
+		this.difficultyLevel = difficultyLevel;
 	}
 
-	public static int getImageNumber() {
+	public  int getImageNumber() {
 		return imageNumber;
 	}
 
-	public static void setImageNumber(int imageNumber) {
-		MainController.imageNumber = imageNumber;
+	public  void setImageNumber(int imageNumber) {
+		this.imageNumber = imageNumber;
 	}
 
-	public static int getCorrectImagesNumber() {
+	public  int getCorrectImagesNumber() {
 		return correctImagesNumber;
 	}
 
-	public static void setCorrectImagesNumber(int correctImagesNumber) {
-		MainController.correctImagesNumber = correctImagesNumber;
+	public  void setCorrectImagesNumber(int correctImagesNumber) {
+		this.correctImagesNumber = correctImagesNumber;
 	}
 
-	public static MainCategory getMainCategory() {
+	public  MainCategory getMainCategory() {
 		return mainCategory;
 	}
 
-	public static void setMainCategory(MainCategory mainCategory) {
-		MainController.mainCategory = mainCategory;
+	public  void setMainCategory(MainCategory mainCategory) {
+		this.mainCategory = mainCategory;
 	}
 
-	public static Category getCorrectCategory() {
+	public  Category getCorrectCategory() {
 		return correctCategory;
 	}
 
-	public static void setCorrectCategory(Category correctCategory) {
-		MainController.correctCategory = correctCategory;
+	public  void setCorrectCategory(Category correctCategory) {
+		this.correctCategory = correctCategory;
 	}
 
-	public static ArrayList<URL> getDisplayedImages() {
+	public  ArrayList<URL> getDisplayedImages() {
 		return displayedImages;
 	}
 
-	public static void setDisplayedImages(ArrayList<URL> displayedImages) {
-		MainController.displayedImages = displayedImages;
+	public  void setDisplayedImages(ArrayList<URL> displayedImages) {
+		this.displayedImages = displayedImages;
 	}
 
-	public static ArrayList<URL> getCorrectImages() {
+	public  ArrayList<URL> getCorrectImages() {
 		return correctImages;
 	}
 
-	public static void setCorrectImages(ArrayList<URL> correctImages) {
-		MainController.correctImages = correctImages;
-	}
-
-	public static void setInstance(MainController instance) {
-		MainController.instance = instance;
+	public  void setCorrectImages(ArrayList<URL> correctImages) {
+		this.correctImages = correctImages;
 	}
 
 	/** Point d'accès pour l'instance unique du singleton */
-    public static MainController getInstance(){   
+    public static  MainController getInstance(){   
     	return instance;
     }
     
-    private static Category randomCategory(ArrayList<Category> catArray) {
+    private  Category randomCategory(ArrayList<Category> catArray) {
     	return catArray.get(randomFromZero(catArray.size()));
     }
     
-    private static int randomFromZero(int number) {
+    private  int randomFromZero(int number) {
 		int n = (int)(Math.random() * number);
         return n;
 	}
+    
+    public void reloadCaptcha() {
+    	instance = new MainController();
+    }
 }

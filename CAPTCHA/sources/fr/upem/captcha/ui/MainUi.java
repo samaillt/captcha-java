@@ -16,6 +16,7 @@ import fr.upem.captcha.images.hero.marvel.Marvel;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -45,15 +46,15 @@ public class MainUi {
 	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
 	private static ArrayList<URL> displayedImages = new ArrayList<URL>();
+	JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 	
-	public static void main(String[] args) throws IOException {
-
+	public MainUi() throws IOException{
 		MainController mainController = MainController.getInstance();
 		System.out.println(mainController.getCorrectCategory());
 		System.out.println(mainController.getCorrectImages());
 		System.out.println(mainController.getFalseImages());
+		System.out.println(mainController.getDisplayedImages());
 		
-		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 		
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		
@@ -66,18 +67,8 @@ public class MainUi {
 		JButton okButton = createOkButton();
 		
 		JButton reinitButton = createReloadButton();
-
-		frame.add(createLabelImage("centre ville.jpg")); //ajouter des composants à la fenêtre
-		frame.add(createLabelImage("le havre.jpg"));
-		frame.add(createLabelImage("panneau 70.jpg"));
-		frame.add(createLabelImage("panneaubleu-carre.jpeg"));
-		frame.add(createLabelImage("parking.jpg"));
-		frame.add(createLabelImage("route panneau.jpg"));
-		frame.add(createLabelImage("tour eiffel.jpg"));
-		frame.add(createLabelImage("ville espace verts.jpg"));
-		frame.add(createLabelImage("voie pieton.jpg"));
 		
-		frame.add(new JTextArea("Cliquez n'importe sur les images !"));
+		fillGridDisplayedImages();
 		
 		frame.add(okButton);
 		
@@ -100,13 +91,18 @@ public class MainUi {
 					@Override
 					public void run() { // c'est un runnable
 						System.out.println("J'ai cliqué sur valider");
+						if (MainController.getInstance().verifySelectedImages(selectedImages)) {
+							System.out.println("C'est validé !");
+						} else {
+							System.out.println("C'est faux !");
+						}
 					}
 				});
 			}
 		});
 	}
 	
-	private static JButton createReloadButton(){
+	private JButton createReloadButton(){
 		return new JButton(new AbstractAction("Réinitialiser") { //ajouter l'action du bouton
 			
 			@Override
@@ -117,15 +113,35 @@ public class MainUi {
 					public void run() { // c'est un runnable
 						System.out.println("J'ai cliqué sur reload");
 						displayedImages.clear();
+						MainController.getInstance().reloadCaptcha();
+						try {
+							fillGridDisplayedImages();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				});
 			}
 		});
 	}
 	
-	private static JLabel createLabelImage(String imageLocation) throws IOException{
-		
-		final URL url = MainUi.class.getResource(imageLocation); //Aller chercher les images !! IMPORTANT 
+	public void fillGridDisplayedImages() throws IOException {
+		int i = 0;
+		for ( ; i < MainController.getInstance().getImageNumber() ; i++) {
+			if(frame.getContentPane().getComponentCount()-1 >= i) {
+				frame.getContentPane().remove(i);
+			}
+			frame.add(createLabelImage(MainController.getInstance().getDisplayedImages().get(i)), i);
+		}
+		if (frame.getContentPane().getComponentCount()-1 >= i) {
+			frame.getContentPane().remove(i);
+		}
+		frame.add(new JTextArea("Click on " + MainController.getInstance().getCorrectCategory()), i);
+		frame.repaint();
+		frame.revalidate();
+	}
+	
+	private static JLabel createLabelImage(URL url) throws IOException{
 		
 		System.out.println(url); 
 		
@@ -181,5 +197,9 @@ public class MainUi {
 		});
 		
 		return label;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		MainUi main = new MainUi();
 	}
 }
