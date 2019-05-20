@@ -149,4 +149,11 @@ public abstract class Category implements Images {
 		}
 		return str.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj.getClass() != this.getClass())
+			return false;
+		return ((Category)obj).getName().equals(this.getName());
+	}
 }

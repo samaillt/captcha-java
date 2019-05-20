@@ -43,15 +43,15 @@ public class MainController {
 		this.filldisplayedImages();
 	}
 	
-	public  ArrayList<URL> getFalseImages() {
+	public ArrayList<URL> getFalseImages() {
 		return falseImages;
 	}
 
-	public  void setFalseImages(ArrayList<URL> falseImages) {
+	public void setFalseImages(ArrayList<URL> falseImages) {
 		this.falseImages = falseImages;
 	}
 
-	public  void fillCorrectImages(Category correctCategory) {
+	public void fillCorrectImages(Category correctCategory) {
 		if (correctCategory.getSubCategories().isEmpty()) {
 			for (URL image : correctCategory.getImages()) {
 				correctImages.add(image);
@@ -64,7 +64,7 @@ public class MainController {
 	}
 	
 	public  void fillFalseImages(Category category) {
-		if (category == correctCategory) {
+		if ((category.equals(correctCategory))) {
 			return;
 		}
 		if (category.getSubCategories().isEmpty()) {
@@ -93,6 +93,7 @@ public class MainController {
 	public boolean verifySelectedImages(ArrayList<URL> selectedImages) {
 		System.out.println("correctImages" + correctImages);
 		System.out.println("selectedImages" + selectedImages);
+		System.out.println(correctImagesNumber);
 		if(selectedImages.size() != correctImagesNumber) {
 			return false;
 		}
