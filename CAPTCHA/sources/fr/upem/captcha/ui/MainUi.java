@@ -44,7 +44,6 @@ public class MainUi {
 	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
 	private static ArrayList<URL> displayedImages = new ArrayList<URL>();
-	private static ArrayList<Category> categories = new ArrayList<Category>();
 	
 	public static void main(String[] args) throws IOException {
 
@@ -52,9 +51,7 @@ public class MainUi {
 		
 		Category cat = new Category();
 		int nb = randomFromZero(3);
-		for (Category category : cat.getSubCategories()) {
-			categories.add(category);
-		}
+		ArrayList<Category> categories = cat.getSubCategories();
 		Category correctCategory = categories.get(nb);
 		System.out.println(correctCategory);
 		for (URL image : cat.getImages()) {
