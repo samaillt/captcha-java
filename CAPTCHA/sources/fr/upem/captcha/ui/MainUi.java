@@ -49,9 +49,9 @@ public class MainUi {
 	public static void main(String[] args) throws IOException {
 
 		MainController mainController = MainController.getInstance();
-		
-		Category cat = new MainCategory();
-		System.out.println(cat);
+		System.out.println(mainController.getCorrectCategory());
+		System.out.println(mainController.getCorrectImages());
+		System.out.println(mainController.getFalseImages());
 		
 		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 		
@@ -84,11 +84,6 @@ public class MainUi {
 		frame.add(reinitButton);
 		
 		frame.setVisible(true);
-	}
-	
-	private static int randomFromZero(int number) {
-		int n = (int)(Math.random() * number);
-        return n;
 	}
 	
 	private static GridLayout createLayout(){

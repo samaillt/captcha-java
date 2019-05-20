@@ -149,5 +149,4 @@ public abstract class Category implements Images {
 		}
 		return str.toString();
 	}
-
 }
