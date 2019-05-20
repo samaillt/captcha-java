@@ -76,8 +76,7 @@ public class MainController {
 		Collections.shuffle(falseImages);
 		displayedImages.addAll(falseImages.subList(0, imageNumber - correctImagesNumber));
 		
-		ArrayList<URL> allImages = getDisplayedImages();
-		Collections.shuffle(allImages);
+		Collections.shuffle(displayedImages);
 	}
 	
 	public boolean verifySelectedImages(ArrayList<URL> selectedImages) {
