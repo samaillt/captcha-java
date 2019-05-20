@@ -32,6 +32,17 @@ public class MainController {
 		this.filldisplayedImages();
 	}
 	
+	private MainController(int difficultyLevel, Category category){
+		this.difficultyLevel = difficultyLevel;
+		this.imageNumber = 9;
+		this.correctImagesNumber = randomFromZero(4) + 1;
+		this.mainCategory = new MainCategory();
+		this.correctCategory = category;
+		this.fillCorrectImages(correctCategory);
+		this.fillFalseImages(mainCategory);
+		this.filldisplayedImages();
+	}
+	
 	public  ArrayList<URL> getFalseImages() {
 		return falseImages;
 	}
@@ -80,6 +91,8 @@ public class MainController {
 	}
 	
 	public boolean verifySelectedImages(ArrayList<URL> selectedImages) {
+		System.out.println("correctImages" + correctImages);
+		System.out.println("selectedImages" + selectedImages);
 		if(selectedImages.size() != correctImagesNumber) {
 			return false;
 		}
@@ -161,7 +174,19 @@ public class MainController {
         return n;
 	}
     
-    public void reloadCaptcha() {
-    	instance = new MainController();
+    public void reloadCaptcha(boolean difficultyChanged) {
+    	displayedImages.clear();
+    	correctImages.clear();
+    	falseImages.clear();
+    	if (difficultyChanged) {
+    		if(this.difficultyLevel == 1)
+    			instance = new MainController(2, randomCategory(getCorrectCategory().getSubCategories()));
+    		else {
+    			instance = new MainController(2, getCorrectCategory());
+    		}
+    	} else {
+    		instance = new MainController();
+    	}
+    	
     }
 }

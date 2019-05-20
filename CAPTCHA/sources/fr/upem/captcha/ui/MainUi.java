@@ -34,6 +34,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 public class MainUi {
@@ -81,7 +82,7 @@ public class MainUi {
 		return new GridLayout(gridLines,gridColumns);
 	}
 	
-	private static JButton createOkButton(){
+	private JButton createOkButton(){
 		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
 			
 			@Override
@@ -90,11 +91,18 @@ public class MainUi {
 					
 					@Override
 					public void run() { // c'est un runnable
-						System.out.println("J'ai cliqué sur valider");
 						if (MainController.getInstance().verifySelectedImages(selectedImages)) {
-							System.out.println("C'est validé !");
+							JOptionPane.showMessageDialog(getFrame(), "Vous avez réussis !");
 						} else {
-							System.out.println("C'est faux !");
+							MainController.getInstance().reloadCaptcha(true);
+							
+							selectedImages.clear();
+							JOptionPane.showMessageDialog(getFrame(), "Vous avez raté !", null, JOptionPane.ERROR_MESSAGE);
+							try {
+								fillGridDisplayedImages();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				});
@@ -102,6 +110,10 @@ public class MainUi {
 		});
 	}
 	
+	public JFrame getFrame() {
+		return frame;
+	}
+
 	private JButton createReloadButton(){
 		return new JButton(new AbstractAction("Réinitialiser") { //ajouter l'action du bouton
 			
@@ -113,7 +125,7 @@ public class MainUi {
 					public void run() { // c'est un runnable
 						System.out.println("J'ai cliqué sur reload");
 						selectedImages.clear();
-						MainController.getInstance().reloadCaptcha();
+						MainController.getInstance().reloadCaptcha(false);
 						try {
 							fillGridDisplayedImages();
 						} catch (IOException e) {
