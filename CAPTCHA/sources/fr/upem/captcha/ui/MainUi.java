@@ -50,7 +50,7 @@ public class MainUi {
 
 		MainController mainController = MainController.getInstance();
 		
-		Category cat = new Category();
+		Category cat = new MainCategory();
 		System.out.println(cat);
 		
 		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale

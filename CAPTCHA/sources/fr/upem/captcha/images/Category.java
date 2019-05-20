@@ -14,12 +14,12 @@ import java.lang.StringBuilder;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.Class;
 
-public class Category implements Images {
+public abstract class Category implements Images {
 
 	private ArrayList<URL> images = null;
 	private ArrayList<Category> subCategories = null;
 	
-	public Category() {
+	protected Category() {
 		super();
 		this.images = new ArrayList<URL>();
 		this.subCategories = new ArrayList<Category>();
@@ -62,9 +62,6 @@ public class Category implements Images {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-//			for (String classe : classes) {
-//				System.out.println(classe);
-//			}
 			for (String className : classes) {
 				Object object = null;
 				try {
@@ -93,9 +90,6 @@ public class Category implements Images {
 					this.subCategories.add((Category)object); // Adding object to subCategories
 		        }
 			}
-//			for (Category cat : this.subCategories) {
-//				System.out.println(cat.getName());
-//			}
 		}
 	}
 	
@@ -103,7 +97,6 @@ public class Category implements Images {
 		// String path = this.getClass().getPackage().getName().replace('.', '/');
 		StringBuilder fileName = new StringBuilder(this.getClass().getSimpleName());
 		fileName.append(".class");
-		//System.out.println(fileName.toString());
 		URL catUrl = this.getClass().getResource(fileName.toString()); 
 		File classFile =  new File(catUrl.getPath());
 		return Paths.get(classFile.getParent());
