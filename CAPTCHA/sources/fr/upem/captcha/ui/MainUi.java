@@ -3,6 +3,7 @@ package fr.upem.captcha.ui;
 import fr.upem.captcha.images.Images;
 import fr.upem.captcha.controller.MainController;
 import fr.upem.captcha.images.Category;
+import fr.upem.captcha.images.MainCategory;
 import fr.upem.captcha.images.anime.Anime;
 import fr.upem.captcha.images.anime.princess.Princess;
 import fr.upem.captcha.images.anime.titeuf.Titeuf;
@@ -50,13 +51,7 @@ public class MainUi {
 		MainController mainController = MainController.getInstance();
 		
 		Category cat = new Category();
-		int nb = randomFromZero(3);
-		ArrayList<Category> categories = cat.getSubCategories();
-		Category correctCategory = categories.get(nb);
-		System.out.println(correctCategory);
-		for (URL image : cat.getImages()) {
-			System.out.println(image);
-		}
+		System.out.println(cat);
 		
 		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 		

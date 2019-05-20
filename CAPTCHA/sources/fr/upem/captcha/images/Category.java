@@ -20,6 +20,7 @@ public class Category implements Images {
 	private ArrayList<Category> subCategories = null;
 	
 	public Category() {
+		super();
 		this.images = new ArrayList<URL>();
 		this.subCategories = new ArrayList<Category>();
 		this.fillImages();
@@ -61,11 +62,13 @@ public class Category implements Images {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+//			for (String classe : classes) {
+//				System.out.println(classe);
+//			}
 			for (String className : classes) {
 				Object object = null;
 				try {
 					object = Class.forName(className).getDeclaredConstructor().newInstance();
-					// OK JUSQUE LA System.out.println(object);
 				} catch (ClassNotFoundException e) // Class doesn't exist
 			    {
 					e.printStackTrace();
@@ -90,6 +93,9 @@ public class Category implements Images {
 					this.subCategories.add((Category)object); // Adding object to subCategories
 		        }
 			}
+//			for (Category cat : this.subCategories) {
+//				System.out.println(cat.getName());
+//			}
 		}
 	}
 	
@@ -97,6 +103,7 @@ public class Category implements Images {
 		// String path = this.getClass().getPackage().getName().replace('.', '/');
 		StringBuilder fileName = new StringBuilder(this.getClass().getSimpleName());
 		fileName.append(".class");
+		//System.out.println(fileName.toString());
 		URL catUrl = this.getClass().getResource(fileName.toString()); 
 		File classFile =  new File(catUrl.getPath());
 		return Paths.get(classFile.getParent());
@@ -135,6 +142,18 @@ public class Category implements Images {
 	@Override
 	public String toString() {
 		StringBuilder  str = new StringBuilder(this.getName());
+		str.append(" :\n  Sub categories :\n");
+		for (Category cat : this.subCategories) {
+			str.append("    - ");
+			str.append(cat.getName());
+			str.append("\n");
+		}
+		str.append("  Images :\n");
+		for (URL image : this.images) {
+			str.append("    - ");
+			str.append(image);
+			str.append("\n");
+		}
 		return str.toString();
 	}
 
