@@ -20,7 +20,7 @@ public class MainController {
     /** Instance unique pré-initialisée */
     private static MainController instance = new MainController();
     
-    /** Controlleur privé **/
+    /** Constructeur privé **/
 	private MainController(){
 		this.difficultyLevel = 1;
 		this.imageNumber = 9;
