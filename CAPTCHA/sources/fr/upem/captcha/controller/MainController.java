@@ -17,10 +17,10 @@ public class MainController {
 	private ArrayList<URL> correctImages = new ArrayList<URL>();
 	private ArrayList<URL> falseImages = new ArrayList<URL>();
     
-    /** Instance unique pré-initialisée */
+    /** Instance unique prï¿½-initialisï¿½e */
     private static MainController instance = new MainController();
     
-    /** Constructeur privé **/
+    /** Constructeur privï¿½ **/
 	private MainController(){
 		this.difficultyLevel = 1;
 		this.imageNumber = 9;
