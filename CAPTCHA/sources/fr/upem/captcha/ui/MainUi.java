@@ -49,13 +49,6 @@ public class MainUi {
 	JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 	
 	public MainUi() throws IOException{
-		MainController mainController = MainController.getInstance();
-		System.out.println(mainController.getCorrectCategory());
-		System.out.println(mainController.getCorrectImages());
-		System.out.println(mainController.getFalseImages());
-		System.out.println(mainController.getDisplayedImages());
-		System.out.println(mainController.getDisplayedImages().size());
-		
 		
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		
@@ -123,7 +116,6 @@ public class MainUi {
 					
 					@Override
 					public void run() { // c'est un runnable
-						System.out.println("J'ai cliqué sur reload");
 						selectedImages.clear();
 						MainController.getInstance().reloadCaptcha(false);
 						try {
@@ -148,7 +140,7 @@ public class MainUi {
 		if (frame.getContentPane().getComponentCount()-1 >= i) {
 			frame.getContentPane().remove(i);
 		}
-		frame.add(new JTextArea("Click on " + MainController.getInstance().getCorrectCategory()), i);
+		frame.add(new JTextArea("Cliquez sur les images représentant : " + MainController.getInstance().getCorrectCategory().getName()), i);
 		frame.repaint();
 		frame.revalidate();
 	}
