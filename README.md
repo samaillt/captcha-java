@@ -1,2 +1,13 @@
-# java_project_s4
-Captcha using Java | NoÃ©lie Bravo - Tom Samaille | Imac 2 - S4 - 2019
+# Captcha using Java
+
+Project working fine on Ubuntu - Windows - MacOS
+
+## Launch the application
+
+```
+cd ./CAPTCHA && rsync -avz --exclude '.java' ./sources/ ./classes/ && find . -name ".java" -print | xargs javac -d classes && java -cp classes fr.upem.captcha.ui.MainUi
+```
+
+*Noélie Bravo*, *Tom SAMAILLE*
+
+IMAC engineering school - 2019
