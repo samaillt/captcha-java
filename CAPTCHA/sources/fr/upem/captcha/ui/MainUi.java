@@ -146,9 +146,7 @@ public class MainUi {
 	}
 	
 	private static JLabel createLabelImage(URL url) throws IOException{
-		
-		System.out.println(url); 
-		
+				
 		BufferedImage img = ImageIO.read(url); //lire l'image
 		Image sImage = img.getScaledInstance(windowWidth/gridColumns,windowHeight/gridLines, Image.SCALE_SMOOTH); //redimentionner l'image
 		
