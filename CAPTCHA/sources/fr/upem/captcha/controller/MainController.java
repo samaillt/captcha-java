@@ -17,10 +17,10 @@ public class MainController {
 	private ArrayList<URL> correctImages = new ArrayList<URL>();
 	private ArrayList<URL> falseImages = new ArrayList<URL>();
     
-    /** Instance unique prÃ©-initialisÃ©e */
+    /** Instance unique pré-initialisée */
     private static MainController instance = new MainController();
     
-    /** Constructeur privÃ© **/
+    /** Constructeur privé **/
 	private MainController(){
 		this.difficultyLevel = 1;
 		this.imageNumber = 9;
@@ -91,8 +91,6 @@ public class MainController {
 	}
 	
 	public boolean verifySelectedImages(ArrayList<URL> selectedImages) {
-		System.out.println("correctImages" + correctImages);
-		System.out.println("selectedImages" + selectedImages);
 		if(selectedImages.size() != correctImagesNumber) {
 			return false;
 		}

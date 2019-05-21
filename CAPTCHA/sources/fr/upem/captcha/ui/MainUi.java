@@ -46,24 +46,18 @@ public class MainUi {
 	private static int gridColumns = 3;
 	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
-	JFrame frame = new JFrame("Captcha"); // CrÃ©ation de la fenÃªtre principale
+	JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 	
 	public MainUi() throws IOException{
-		MainController mainController = MainController.getInstance();
-		System.out.println(mainController.getCorrectCategory());
-		System.out.println(mainController.getCorrectImages());
-		System.out.println(mainController.getFalseImages());
-		System.out.println(mainController.getDisplayedImages());
-		System.out.println(mainController.getDisplayedImages().size());
+		MainController mainController = MainController.getInstance();		
 		
+		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		
-		GridLayout layout = createLayout();  // CrÃ©ation d'un layout de type Grille avec 4 lignes et 3 colonnes
+		frame.setLayout(layout);  // affection du layout dans la fenêtre.
+		frame.setSize(windowWidth, windowHeight); // définition de la taille
+		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
 		
-		frame.setLayout(layout);  // affection du layout dans la fenÃªtre.
-		frame.setSize(windowWidth, windowHeight); // dÃ©finition de la taille
-		frame.setResizable(false);  // On dÃ©finit la fenÃªtre comme non redimentionnable
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenÃªtre on quitte le programme.
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
 		
 		JButton okButton = createOkButton();
 		
@@ -83,21 +77,21 @@ public class MainUi {
 	}
 	
 	private JButton createOkButton(){
-		return new JButton(new AbstractAction("VÃ©rifier") { //ajouter l'action du bouton
+		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				EventQueue.invokeLater(new Runnable() { // faire des choses dans l'interface donc appeler cela dans la queue des Ã©vÃ¨nements
+				EventQueue.invokeLater(new Runnable() { // faire des choses dans l'interface donc appeler cela dans la queue des évènements
 					
 					@Override
 					public void run() { // c'est un runnable
 						if (MainController.getInstance().verifySelectedImages(selectedImages)) {
-							JOptionPane.showMessageDialog(getFrame(), "Vous avez rÃ©ussis !");
+							JOptionPane.showMessageDialog(getFrame(), "Vous avez réussis !");
 						} else {
 							MainController.getInstance().reloadCaptcha(true);
 							
 							selectedImages.clear();
-							JOptionPane.showMessageDialog(getFrame(), "Vous avez ratÃ© !", null, JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(getFrame(), "Vous avez raté !", null, JOptionPane.ERROR_MESSAGE);
 							try {
 								fillGridDisplayedImages();
 							} catch (IOException e) {
@@ -115,15 +109,14 @@ public class MainUi {
 	}
 
 	private JButton createReloadButton(){
-		return new JButton(new AbstractAction("RÃ©initialiser") { //ajouter l'action du bouton
+		return new JButton(new AbstractAction("Réinitialiser") { //ajouter l'action du bouton
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				EventQueue.invokeLater(new Runnable() { // faire des choses dans l'interface donc appeler cela dans la queue des Ã©vÃ¨nements
+				EventQueue.invokeLater(new Runnable() { // faire des choses dans l'interface donc appeler cela dans la queue des évènements
 					
 					@Override
 					public void run() { // c'est un runnable
-						System.out.println("J'ai cliquÃ© sur reload");
 						selectedImages.clear();
 						MainController.getInstance().reloadCaptcha(false);
 						try {
@@ -160,9 +153,9 @@ public class MainUi {
 		BufferedImage img = ImageIO.read(url); //lire l'image
 		Image sImage = img.getScaledInstance(windowWidth/gridColumns,windowHeight/gridLines, Image.SCALE_SMOOTH); //redimentionner l'image
 		
-		final JLabel label = new JLabel(new ImageIcon(sImage)); // crÃ©er le composant pour ajouter l'image dans la fenÃªtre
+		final JLabel label = new JLabel(new ImageIcon(sImage)); // créer le composant pour ajouter l'image dans la fenêtre
 		
-		label.addMouseListener(new MouseListener() { //Ajouter le listener d'Ã©venement de souris
+		label.addMouseListener(new MouseListener() { //Ajouter le listener d'évenement de souris
 			private boolean isSelected = false;
 			
 			
@@ -186,7 +179,7 @@ public class MainUi {
 			}
 			
 			@Override
-			public void mouseClicked(MouseEvent arg0) { //ce qui nous intÃ©resse c'est lorsqu'on clique sur une image, il y a donc des choses Ã  faire ici
+			public void mouseClicked(MouseEvent arg0) { //ce qui nous intéresse c'est lorsqu'on clique sur une image, il y a donc des choses Ã  faire ici
 				EventQueue.invokeLater(new Runnable() { 
 					
 					@Override
