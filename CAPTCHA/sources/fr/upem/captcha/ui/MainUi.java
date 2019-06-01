@@ -107,6 +107,7 @@ public class MainUi {
 					public void run() { // c'est un runnable
 						if (MainController.getInstance().verifySelectedImages(selectedImages)) {
 							JOptionPane.showMessageDialog(getFrame(), "Vous avez réussis !");
+							System.exit(0);
 						} else {
 							MainController.getInstance().reloadCaptcha(true);
 							
@@ -169,7 +170,7 @@ public class MainUi {
 		if (frame.getContentPane().getComponentCount()-1 >= i) {
 			frame.getContentPane().remove(i);
 		}
-		frame.add(new JTextArea("Cliquez sur les images représentant : " + MainController.getInstance().getCorrectCategory().getName()), i);
+		frame.add(new JTextArea("Cliquez sur les images représentant : \n" + MainController.getInstance().getCorrectCategory().getName()), i);
 		frame.repaint();
 		frame.revalidate();
 	}
