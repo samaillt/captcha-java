@@ -82,6 +82,19 @@ public class MainUi {
 		frame.add(reinitButton);
 		
 		frame.setVisible(true);
+		
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        if (JOptionPane.showConfirmDialog(frame, 
+		            "Etes-vous sur de vouloir abandonner ?", "Fermeture", 
+		            JOptionPane.YES_NO_OPTION,
+		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+		            MainController.getInstance().closeApplication(false);
+		        }
+		    }
+		});
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 	
 	/**
@@ -107,7 +120,7 @@ public class MainUi {
 					public void run() { // c'est un runnable
 						if (MainController.getInstance().verifySelectedImages(selectedImages)) {
 							JOptionPane.showMessageDialog(getFrame(), "Vous avez réussis !");
-							System.exit(0);
+							MainController.getInstance().closeApplication(true);
 						} else {
 							MainController.getInstance().reloadCaptcha(true);
 							

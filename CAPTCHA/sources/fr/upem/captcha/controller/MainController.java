@@ -194,6 +194,18 @@ public class MainController {
     	} else {
     		instance = new MainController();
     	}
-    	
+    }
+    
+    /**
+     * Closes the application - 0 exit value if succeeds, else 1
+     * @param succeed
+     */
+    public void closeApplication(boolean succeed) {
+    	if (succeed) {
+    		System.exit(0); //close the application because the user succeed
+    	}
+    	else {
+    		System.exit(1); //close the application because the user gives up
+    	}
     }
 }
