@@ -1,3 +1,8 @@
+/**
+ * @author Noélie Bravo - Tom Samaille
+ * @file MainController.java
+ * @package fr.upem.captcha.controller
+ */
 package fr.upem.captcha.controller;
 
 import java.net.URL;
@@ -6,6 +11,9 @@ import fr.upem.captcha.images.Category;
 import fr.upem.captcha.images.MainCategory;
 import java.util.Collections;
 
+/**
+ * Main controller : manages the application, implements singleton.
+ */
 public class MainController {
 	
 	private int difficultyLevel;
@@ -17,10 +25,12 @@ public class MainController {
 	private ArrayList<URL> correctImages = new ArrayList<URL>();
 	private ArrayList<URL> falseImages = new ArrayList<URL>();
     
-    /** Instance unique pré-initialisée */
+    /** unique instance */
     private static MainController instance = new MainController();
     
-    /** Constructeur privé **/
+    /**
+     * Private constructor
+     */
 	private MainController(){
 		this.difficultyLevel = 1;
 		this.imageNumber = 9;
@@ -32,6 +42,12 @@ public class MainController {
 		this.filldisplayedImages();
 	}
 	
+	/**
+	 * 
+	 * @param difficultyLevel difficulty "1" : easy, "2"  : hard
+	 * @param category Actual category
+	 * 
+	 */
 	private MainController(int difficultyLevel, Category category){
 		this.difficultyLevel = difficultyLevel;
 		this.imageNumber = 9;
@@ -51,6 +67,10 @@ public class MainController {
 		this.falseImages = falseImages;
 	}
 
+	/**
+	 * Fills correctImages with the images of the category passed in parameter which will be considered as the right answers
+	 * @param correctCategory
+	 */
 	public void fillCorrectImages(Category correctCategory) {
 		if (correctCategory.getSubCategories().isEmpty()) {
 			for (URL image : correctCategory.getImages()) {
@@ -63,6 +83,10 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Fills falseImages with the images of the category passed in parameter which will be considered as the wrong answers
+	 * @param category 
+	 */
 	public  void fillFalseImages(Category category) {
 		if ((category.equals(correctCategory))) {
 			return;
@@ -78,6 +102,9 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Fills displayedImages with images selected and shuffles displayedImages
+	 */
 	public void filldisplayedImages() {
 		ArrayList<URL> correctImages = getCorrectImages();
 		Collections.shuffle(correctImages);
@@ -90,6 +117,11 @@ public class MainController {
 		Collections.shuffle(displayedImages);
 	}
 	
+	/**
+	 * Verifies images selected by the user
+	 * @param selectedImages
+	 * @return boolean
+	 */
 	public boolean verifySelectedImages(ArrayList<URL> selectedImages) {
 		if(selectedImages.size() != correctImagesNumber) {
 			return false;
@@ -101,77 +133,54 @@ public class MainController {
 		}
 		return true;
 	}
-		
-    public int getDifficultyLevel() {
-		return difficultyLevel;
-	}
-
-	public void setDifficultyLevel(int difficultyLevel) {
-		this.difficultyLevel = difficultyLevel;
-	}
-
+	
 	public  int getImageNumber() {
 		return imageNumber;
-	}
-
-	public  void setImageNumber(int imageNumber) {
-		this.imageNumber = imageNumber;
-	}
-
-	public  int getCorrectImagesNumber() {
-		return correctImagesNumber;
-	}
-
-	public  void setCorrectImagesNumber(int correctImagesNumber) {
-		this.correctImagesNumber = correctImagesNumber;
-	}
-
-	public  MainCategory getMainCategory() {
-		return mainCategory;
-	}
-
-	public  void setMainCategory(MainCategory mainCategory) {
-		this.mainCategory = mainCategory;
 	}
 
 	public  Category getCorrectCategory() {
 		return correctCategory;
 	}
 
-	public  void setCorrectCategory(Category correctCategory) {
-		this.correctCategory = correctCategory;
-	}
-
 	public  ArrayList<URL> getDisplayedImages() {
 		return displayedImages;
-	}
-
-	public  void setDisplayedImages(ArrayList<URL> displayedImages) {
-		this.displayedImages = displayedImages;
 	}
 
 	public  ArrayList<URL> getCorrectImages() {
 		return correctImages;
 	}
 
-	public  void setCorrectImages(ArrayList<URL> correctImages) {
-		this.correctImages = correctImages;
-	}
-
-	/** Point d'accès pour l'instance unique du singleton */
+	/**
+	 * Get the singleton's instance
+	 * @return
+	 */
     public static  MainController getInstance(){   
     	return instance;
     }
     
+    /**
+     * Return a random category
+     * @param catArray ArrayList of categories
+     * @return
+     */
     private  Category randomCategory(ArrayList<Category> catArray) {
     	return catArray.get(randomFromZero(catArray.size()));
     }
     
+    /**
+     * Return a random number between zero and number
+     * @param number
+     * @return
+     */
     private  int randomFromZero(int number) {
 		int n = (int)(Math.random() * number);
         return n;
 	}
     
+    /**
+     * Reload the application 
+     * @param difficultyChanged must be set to true if the difficulty as been changed, else false
+     */
     public void reloadCaptcha(boolean difficultyChanged) {
     	displayedImages.clear();
     	correctImages.clear();

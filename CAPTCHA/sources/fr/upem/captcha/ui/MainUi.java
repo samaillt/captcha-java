@@ -1,3 +1,8 @@
+/**
+ * @author Noélie Bravo - Tom Samaille
+ * @file MainUi.java
+ * @package fr.upem.captcha.ui
+ */
 package fr.upem.captcha.ui;
 
 import fr.upem.captcha.images.Images;
@@ -37,6 +42,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
+/**
+ * Main UI : 
+ *
+ */
 public class MainUi {
 	
 	private static int windowWidth = 800;
@@ -48,6 +57,10 @@ public class MainUi {
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
 	JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 	
+	/**
+	 * Management and display of the window
+	 * @throws IOException
+	 */
 	public MainUi() throws IOException{
 		
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
@@ -71,10 +84,18 @@ public class MainUi {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Create new layout
+	 * @return new GridLayout
+	 */
 	private static GridLayout createLayout(){
 		return new GridLayout(gridLines,gridColumns);
 	}
 	
+	/**
+	 * Creation of the "ok" button
+	 * @return new JButton
+	 */
 	private JButton createOkButton(){
 		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
 			
@@ -106,7 +127,11 @@ public class MainUi {
 	public JFrame getFrame() {
 		return frame;
 	}
-
+	
+	/**
+	 * Creation of the "Reload" button
+	 * @return new Jbutton
+	 */
 	private JButton createReloadButton(){
 		return new JButton(new AbstractAction("Réinitialiser") { //ajouter l'action du bouton
 			
@@ -129,6 +154,10 @@ public class MainUi {
 		});
 	}
 	
+	/**
+	 * Fill displayed images grid
+	 * @throws IOException
+	 */
 	public void fillGridDisplayedImages() throws IOException {
 		int i = 0;
 		for ( ; i < MainController.getInstance().getImageNumber() ; i++) {
@@ -145,6 +174,12 @@ public class MainUi {
 		frame.revalidate();
 	}
 	
+	/**
+	 * Creation of the label image
+	 * @param url
+	 * @return label image
+	 * @throws IOException
+	 */
 	private static JLabel createLabelImage(URL url) throws IOException{
 				
 		BufferedImage img = ImageIO.read(url); //lire l'image
@@ -198,6 +233,11 @@ public class MainUi {
 		return label;
 	}
 	
+	/**
+	 * Main
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		MainUi main = new MainUi();
 	}

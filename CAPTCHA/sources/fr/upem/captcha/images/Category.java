@@ -1,3 +1,8 @@
+/**
+ * @author Noélie Bravo - Tom Samaille
+ * @file Category.java
+ * @package fr.upem.captcha.images
+ */
 package fr.upem.captcha.images;
 
 import java.net.URL;
@@ -14,11 +19,18 @@ import java.lang.StringBuilder;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.Class;
 
+/**
+ * Caterory implements Images
+ *
+ */
 public abstract class Category implements Images {
 
 	private ArrayList<URL> images = null;
 	private ArrayList<Category> subCategories = null;
 	
+	/**
+	 * Constructor
+	 */
 	protected Category() {
 		super();
 		this.images = new ArrayList<URL>();
@@ -27,6 +39,9 @@ public abstract class Category implements Images {
 		this.fillCategories();
 	}
 	
+	/**
+	 * Search all images 
+	 */
 	public void fillImages() {
 		Path path = this.getPath();
 		List<String> images = null;
@@ -45,6 +60,9 @@ public abstract class Category implements Images {
 		}
 	}
 	
+	/**
+	 * Search all categories
+	 */
 	public void fillCategories() {
 		Path path = this.getPath();
 		List<String> subDirectories = this.getSubDirectories();
@@ -93,6 +111,9 @@ public abstract class Category implements Images {
 		}
 	}
 	
+	/**
+	 * Get category's path
+	 */
 	public Path getPath() {
 		// String path = this.getClass().getPackage().getName().replace('.', '/');
 		StringBuilder fileName = new StringBuilder(this.getClass().getSimpleName());
@@ -102,10 +123,16 @@ public abstract class Category implements Images {
 		return Paths.get(classFile.getParent());
 	}
 	
+	/**
+	 * Get category's name
+	 */
 	public String getName() {
 		return this.getClass().getSimpleName();
 	}
 	
+	/**
+	 * Get category's subdirectory
+	 */
 	public List<String> getSubDirectories() {
 		Path path = this.getPath();
 		List<String> subDirectories = null; // List of subCategories names
@@ -121,7 +148,7 @@ public abstract class Category implements Images {
 		}
 		return subDirectories;
 	}
-	
+
 	@Override
 	public ArrayList<URL> getImages() {
 		return this.images;
