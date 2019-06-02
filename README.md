@@ -7,7 +7,22 @@ Project working fine on Ubuntu - Windows - MacOS
 From the git project root: 
 
 ```
-cd ./CAPTCHA && rsync -avz --exclude '.java' ./sources/ ./classes/ && find . -name ".java" -print | xargs javac -d classes && java -cp classes fr.upem.captcha.ui.MainUi
+cd ./CAPTCHA
+```
+```
+find . -name "*.java"  -print | xargs javac -d classes
+```
+```
+rsync -avz --exclude '*.java' ./sources/ ./classes/
+```
+```
+java -cp classes fr.upem.captcha.ui.MainUi
+```
+
+or run 
+
+```
+./lauch.sh
 ```
 
 *Noélie Bravo*, *Tom SAMAILLE*
