@@ -5,23 +5,8 @@
  */
 package fr.upem.captcha.ui;
 
-import fr.upem.captcha.images.Images;
-import fr.upem.captcha.controller.MainController;
-import fr.upem.captcha.images.Category;
-import fr.upem.captcha.images.MainCategory;
-import fr.upem.captcha.images.anime.Anime;
-import fr.upem.captcha.images.anime.princess.Princess;
-import fr.upem.captcha.images.anime.titeuf.Titeuf;
-import fr.upem.captcha.images.game.Game;
-import fr.upem.captcha.images.game.clash.Clash;
-import fr.upem.captcha.images.game.fortnite.Fortnite;
-import fr.upem.captcha.images.hero.Hero;
-import fr.upem.captcha.images.hero.dc.Dc;
-import fr.upem.captcha.images.hero.marvel.Marvel;
-
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -41,6 +26,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+
+import fr.upem.captcha.controller.MainController;
 
 /**
  * Main UI : 
@@ -125,7 +112,7 @@ public class MainUi {
 							MainController.getInstance().reloadCaptcha(true);
 							
 							selectedImages.clear();
-							JOptionPane.showMessageDialog(getFrame(), "Vous avez raté !", null, JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(getFrame(), "Vous avez raté !", "Message", JOptionPane.ERROR_MESSAGE);
 							try {
 								fillGridDisplayedImages();
 							} catch (IOException e) {
