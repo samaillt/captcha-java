@@ -30,7 +30,7 @@ import javax.swing.JTextArea;
 import fr.upem.captcha.controller.MainController;
 
 /**
- * Main UI : 
+ * Main UI : main class
  *
  */
 public class MainUi {
