@@ -41,7 +41,9 @@ public abstract class Category implements Images {
 	}
 	
 	/**
-	 * Return height of tree (represents the number of next difficulties from called categories)
+	 * Return tree's height (represents the number of next difficulties from called categories)
+	 * @param category category we want its childs
+	 * @return
 	 */
 	public static int hauteur(Category category) {
 		if (category == null || category.subCategories.isEmpty())

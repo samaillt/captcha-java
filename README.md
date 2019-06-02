@@ -22,7 +22,7 @@ java -cp classes fr.upem.captcha.ui.MainUi
 or run 
 
 ```
-./lauch.sh
+./launch.sh
 ```
 
 *Noélie Bravo*, *Tom SAMAILLE*
