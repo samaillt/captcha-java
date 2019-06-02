@@ -7,6 +7,7 @@ package fr.upem.captcha.images;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.File;
 import java.nio.file.Files;
@@ -37,6 +38,20 @@ public abstract class Category implements Images {
 		this.subCategories = new ArrayList<Category>();
 		this.fillImages();
 		this.fillCategories();
+	}
+	
+	/**
+	 * Return height of tree (represents the number of next difficulties from called categories)
+	 */
+	public static int hauteur(Category category) {
+		if (category == null || category.subCategories.isEmpty())
+			return 0;
+		ArrayList<Integer> childrenHeights = new ArrayList<Integer>();
+		for (Category cat : category.subCategories) {
+			childrenHeights.add(hauteur(cat));
+		}
+		Collections.sort(childrenHeights);
+		return 1 + childrenHeights.get(childrenHeights.size() - 1);
 	}
 	
 	/**

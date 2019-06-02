@@ -17,6 +17,7 @@ import java.util.Collections;
 public class MainController {
 	
 	private int difficultyLevel;
+	private int maxDifficulties;
 	private int imageNumber;
 	private int correctImagesNumber;
 	private MainCategory mainCategory;
@@ -36,6 +37,8 @@ public class MainController {
 		this.imageNumber = 9;
 		this.correctImagesNumber = randomFromZero(4) + 1;
 		this.mainCategory = new MainCategory();
+		this.maxDifficulties = Category.hauteur(mainCategory);
+		System.out.println(maxDifficulties);
 		this.correctCategory = randomCategory(this.mainCategory.getSubCategories());
 		this.fillCorrectImages(correctCategory);
 		this.fillFalseImages(mainCategory);
@@ -186,10 +189,10 @@ public class MainController {
     	correctImages.clear();
     	falseImages.clear();
     	if (difficultyChanged) {
-    		if(this.difficultyLevel == 1)
-    			instance = new MainController(2, randomCategory(getCorrectCategory().getSubCategories()));
+    		if(this.difficultyLevel != this.maxDifficulties)
+    			instance = new MainController(this.difficultyLevel + 1, randomCategory(getCorrectCategory().getSubCategories()));
     		else {
-    			instance = new MainController(2, getCorrectCategory());
+    			instance = new MainController(this.maxDifficulties, getCorrectCategory());
     		}
     	} else {
     		instance = new MainController();
